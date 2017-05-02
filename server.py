@@ -69,7 +69,7 @@ SEE ALSO
 
 For more information on this script see the README_.
 
-.. _README: http://github.com/hemedy99/face-recognition-server
+.. _README: http://github.com/hemedy99/file-server
 
 '''
 
