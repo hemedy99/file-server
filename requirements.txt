@@ -1,0 +1,9 @@
+matplotlib==2.0.0
+numpy==1.12.0
+peewee==2.8.5
+PIL==1.1.7
+Pillow==4.0.0
+scikit-learn==0.18.1
+scipy==0.18.1
+tornado==4.4.2
+twilio==6.3.dev0
