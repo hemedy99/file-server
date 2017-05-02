@@ -1,0 +1,67 @@
+# Table of contents
+1.  [Introduction](#introduction)
+2.  [Requirements](#requirements)
+3.  [Directories Overviews](#dir)
+4.  [Installation](#install)
+5.  [Running it](#run)
+
+## Introduction <a name="introduction"></a>
+
+A simple webserver written in python that uses face-recognition to authenticate users to access
+files that recides within the server and it also make use of websockets.
+
+## Requirements <a name="requirements"></a>
+In order to run this server you need the following to be installed.
+
+*   OpenCv=3.2.0
+*   Tornado=4.4.2
+*   PIL=1.1.7
+*   Peewee=2.8.5
+*   Python=2.7.x
+*   SQLite3
+
+## Directories Overviews <a name="dir"></a>
+| Directory          | Description    |
+| ---------          | :----------    |
+| [admin]        | Admin module for authenticating admin |
+| [data]    | ``images, images.db, and haarcascade_frontalface_alt.xml`` goes here|
+| [db]   | contain script for creating our images database |
+| [opencv] | module to handle all the opencv operations|
+| [static] | contains css, js, script |
+| [templates] | contains all the html files|
+
+## Installation <a name="install"></a>
+1. Clone this repo. 
+```bash-terminal
+git clone https://github.com/hemedy99/face-recognition-server
+```
+2. Change dir to face-recognition-server
+```bash -terminal
+cd face-recognition-server
+```
+3. Install the requirements.
+```bash-terminal
+#if your working on a virtualenv make sure to activate it
+pip install -r requirements.txt
+```
+4. Download [AT&T face database](http://www.cl.cam.ac.uk/research/dtg/attarchive/facedatabase.html) and
+   extract it to ``data/images``.
+5. Change dir to data/ and create ``images.db ``
+```bash-terminal
+cd data
+sqlite3 images.db < ../db/create_db.sql
+```
+
+## Running it <a name="run"></a>
+Before running the saver make sure you have ``.password.txt`` created.
+Here is the sample content of the file.
+```txt
+admin:$6$HS$c7mePrHC9gQUjm/V7GJmAXI1xT1ZsSqvLcBaV4TecAiaMg00a5UuI7M2ghmIPpcBhOAs.Sc.KvxpBIpTh.5R5/
+```
+
+Then run ``python server.py`` and enter this url ``http://127.0.0.1:8888`` in
+your browser. In oder to access admin control center use this url
+``http://127.0.0.1:8888/admin-panel``.
+
+
+
