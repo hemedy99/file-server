@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+
+{% block title %}
+files
+{% end %}
+
+{% block content %}
+<ul>
+    <li>Directory listing for {{path }}</li>
+    {%for item in items%}
+    <li id="file"><a href="files/{{item}}">{{item}}</a><li>
+     {%end%}
+</ul>
+{% end %}
+
+{% block scripts %}
+{% end %}
