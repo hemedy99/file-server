@@ -33,11 +33,11 @@ In order to run this server you need the following to be installed.
 ## Installation <a name="install"></a>
 1. Clone this repo. 
 ```bash-terminal
-git clone https://github.com/hemedy99/face-recognition-server
+git clone https://github.com/hemedy99/file-server
 ```
-2. Change dir to face-recognition-server
+2. Change dir to file-server
 ```bash -terminal
-cd face-recognition-server
+cd file-server
 ```
 3. Install the requirements.
 ```bash-terminal
