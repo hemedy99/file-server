@@ -25,51 +25,32 @@ from tornado.options import define, options
 # Import custom modules
 from admin import admin
 from opencv import opencv
+from syslog.syslog import ServerLog as sl
 
 '''
 Tornado server to handles user's requests, websocket and opencv process.
-
 SYNOPSIS
 ========
-
 ::
-
     server.py [--port] [--listen-address]
-
 DESCRIPTION
 ===========
-
 This script start webserver that is capable of processing http requests and
 websocket functionalities including opencv as an authentication module.
-
 OPTIONS
 =======
-
 ``--port``  specify the listen port for the server default is port 8888.
-
 ``--listen-address`` specify the listen address for the server default is
     127.0.0.1.
-
 ENVIRONMENT
 ===========
-
 ::
     os.path loads the paths for data/images
-
 EXAMPLES
 ========
-
 ::
     1. python2.7 server.py
     2. python2.7 server.py --port 8080 --listen-address 192.168.56.25
-
-
-SEE ALSO
-========
-
-For more information on this script see the README_.
-
-.. _README: http://github.com/hemedy99/file-server
 
 '''
 
@@ -138,7 +119,6 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
     def on_message(self, message):
         """
         This module process the user's request.
-
         Args:
             message: process the image received.
         """
@@ -162,7 +142,6 @@ class FaceDetectHandler(SocketHandler):
     def process(self, cv_image):
         """
         This method calls detect_faces from opencv module.
-
         Args:
             cv_image: detect_faces function use this image to detect presence
                       of a face.
@@ -208,7 +187,6 @@ class HarvestHandler(SocketHandler):
     def process(self, cv_image):
         """
         A function to get the user lable, cookie and prepaire a json  string.
-
         Args:
             cv_image: face image captured from video frames captured.
         """
@@ -236,6 +214,9 @@ class TrainHandler(tornado.web.RequestHandler):
         the  images.
         """
         opencv.train()
+        # # Log the message
+        # message = "Model Successfully Trained."
+        # sl().model_train_stat(message)
 
 
 class PredictHandler(SocketHandler):
@@ -248,13 +229,22 @@ class PredictHandler(SocketHandler):
         """
         This method start the prediction of the client connected to the
         server.
-
         Args:
             cv_image: face image from video frames captured.
         """
         result = opencv.predict(cv_image)
         if result:
             self.write_message(json.dumps(result))
+            # # Log the message
+            # message = "Connected -: "
+            # remote_ip = self.request.headers.get("Host")
+            # host, port = remote_ip.split(":")
+            # sl().authorized_client(message, host, port)
+        # else:
+        #     message = "Unauthorized client tried to connect -: "
+        #     remote_ip = self.request.headers.get("Host")
+        #     host, ip = remote_ip.split(":")
+        #     sl().unauthorized_client(message, host, ip)
 
 
 class AdminLoginHandler(tornado.web.RequestHandler):
@@ -320,8 +310,16 @@ class AdminTrainHandler(tornado.web.RequestHandler):
 
     def get(self):
         logging.info("Training the model.")
-        opencv.train()
-
+        if opencv.train() == True:
+            message = "Model Successfully Trained"
+            self.write(message)
+            # Log the message
+            # sl().model_train_stat(message)
+        # else:
+            # error = "Unknown Error occured during the training the model."
+            # self.writer(error)
+            # # Log the error
+            # sl().model_train_stat(error)
 
 
 class AdminEnrolHandler(tornado.web.RequestHandler):
@@ -344,7 +342,6 @@ class ServerFilesHandler(tornado.web.RequestHandler):
         """
         GET method to list contents of directory or
         write index page if index.html exists.
-
         Args:
             path: define a path to the files(url).
         """
@@ -364,7 +361,6 @@ class ServerFilesHandler(tornado.web.RequestHandler):
         """
         This method generate the  index.html for files and their proper mime
         types.
-
         Args:
             path: url path for the files.
         """
