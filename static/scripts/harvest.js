@@ -104,7 +104,7 @@
       $('#input').hide();
       $('#training').show();
       updateProgressBar(40, 'Saving label');
-      return $.post('/', {
+      return $.post('/enrol', {
         label: label
       }).success(function() {
         updateProgressBar('50');
