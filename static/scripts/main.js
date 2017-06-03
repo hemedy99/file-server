@@ -33,7 +33,7 @@
 
   MAX_DISTANCE = 1000;
 
-  ERROR_THRESHOLD = 10;
+  ERROR_THRESHOLD = 5;
 
   video = document.querySelector('video');
 
