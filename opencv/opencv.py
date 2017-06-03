@@ -1,4 +1,3 @@
-#! /usr/bin/env python2.7
 # Built in modules
 import logging
 import os
@@ -34,9 +33,10 @@ write a file , ``model.mdl``
 create database file, ``data/images.db``
 
 
+
 '''
 
-MODEL_FILE = "../model.mdl"
+MODEL_FILE = "model.mdl"
 db = SqliteDatabase("data/images.db")
 
 
@@ -86,12 +86,10 @@ class Image(BaseModel):
         """
         path = os.path.join(self.IMAGE_DIR, self.label.name)
         nr_of_images = len(os.listdir(path))
-        if nr_of_images >=10:
+        if nr_of_images >= 10:
             return 'Done'
-
         faces = detect_faces(cv_image)
-
-        if len(faces) > 0 and nr_of_images <= 20:
+        if len(faces) > 0 and nr_of_images < 10:
             path += "/%s.jpg" % nr_of_images
             path = os.path.abspath(path)
             logging.info("Saving %s" % path)
@@ -164,7 +162,19 @@ def crop_faces(img, faces):
 
     for face in faces:
         x, y, h, w = [result for result in face]
-        return img[y:y+h,x:x+w]
+        center = (x + w / 2, y + h / 2)
+        axis_major = h / 2
+        axis_minor = w / 2
+        mask = np.zeros_like(img)
+        # create a white filled ellipse
+        mask = cv2.ellipse(mask, center=center, axes=(axis_major, axis_minor),
+                           angle=0, startAngle=0, endAngle=360,
+                           color=(255, 255, 255), thickness=-1)
+        # Bitwise AND operation to black out regions outside the mask
+        images_ellipse = np.bitwise_and(img, mask)
+
+    return images_ellipse[y:y+h,x:x+w]
+
 
 def load_images(path):
     """
@@ -237,11 +247,13 @@ def train():
     """
 
     images, labels = load_images_from_db()
-    #model = cv2.face.createFisherFaceRecognizer()
+    model = cv2.face.createFisherFaceRecognizer()
     #model = cv2.createEigenFaceRecognizer()
-    model = cv2.face.createLBPHFaceRecognizer()
+    #model = cv2.face.createLBPHFaceRecognizer()
     model.train(images,labels)
     model.save(MODEL_FILE)
+
+    return True
 
 def predict(cv_image):
     """
@@ -260,9 +272,9 @@ def predict(cv_image):
         cropped = to_grayscale(crop_faces(cv_image, faces))
         resized = cv2.resize(cropped, (100,100))
 
-        #model = cv2.face.createFisherFaceRecognizer()
+        model = cv2.face.createFisherFaceRecognizer()
         #model = cv2.createEigenFaceRecognizer()
-        model = cv2.face.createLBPHFaceRecognizer()
+        #nmodel = cv2.face.createLBPHFaceRecognizer()
         model.load(MODEL_FILE)
         prediction = model.predict(resized)
         result = {
@@ -278,3 +290,8 @@ def predict(cv_image):
                           }
                  }
     return result
+
+if __name__ == "__main__":
+    print "Beginning training"
+    train()
+    print "Done training"
