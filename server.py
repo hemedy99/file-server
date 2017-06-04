@@ -151,16 +151,14 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 
 class FaceDetectHandler(SocketHandler):
     """
-    A class that contains  methods that process the  detection of the face
-    when client connect tho the server.
+    A class that contains  methods that process the  detection of the face when client connect tho the server.
     """
     def process(self, cv_image):
         """
         This method calls detect_faces from opencv module.
 
         Args:
-            cv_image: detect_faces function use this image to detect presence
-                      of a face.
+            cv_image: detect_faces function use this image to detect presence of a face.
         """
         faces = opencv.detect_faces(cv_image)
         if len(faces) > 0:
@@ -172,8 +170,7 @@ class FaceDetectHandler(SocketHandler):
 
 class SetupHarvestHandler(tornado.web.RequestHandler):
     """
-    This class contain useful methods that are used to harvest data for a new
-    user for the registration purposes.
+    This class contain useful methods that are used to harvest data for a new u0ser for the registration purposes.
     """
 
     def get(self):
@@ -196,8 +193,7 @@ class SetupHarvestHandler(tornado.web.RequestHandler):
 
 class HarvestHandler(SocketHandler):
     """
-    This class define a method that is used to process new user data based on
-    the image and label.
+    This class define a method that is used to process new user data based on the image and label.
     """
 
     def process(self, cv_image):
@@ -221,14 +217,12 @@ class HarvestHandler(SocketHandler):
 
 class TrainHandler(tornado.web.RequestHandler):
     """
-    This class contain a method that process the user's request by calling
-    function ``train`` from opencv module.
+    This class contain a method that process the user's request by calling function ``train`` from opencv module.
     """
 
     def post(self):
         """
-        This method send request to the server for opencv to start trainning
-        the  images.
+        This method send request to the server for opencv to start trainning the  images.
         """
         opencv.train()
         # # Log the message
