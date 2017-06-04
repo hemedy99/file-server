@@ -63,5 +63,8 @@ Then run ``python server.py`` and enter this url ``http://127.0.0.1:8888`` in
 your browser. In oder to access admin control center use this url
 ``http://127.0.0.1:8888/admin-panel``.
 
+https://github.com/hemedy99/file-server
 
+This is a final year project to State University Of Zanzibar (2017)
+Bachelors Of Science In Computer Science
 
