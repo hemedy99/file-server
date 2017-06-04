@@ -13,12 +13,6 @@ from peewee import *
 '''
 Opencv operations for detect, predict and crop the images.
 
-SYNOPSIS
-========
-
-::
-        python2.7 opencv.py
-
 DESCRIPTION
 ===========
 
@@ -31,7 +25,6 @@ Files
 
 write a file , ``model.mdl``
 create database file, ``data/images.db``
-
 
 
 '''
