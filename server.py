@@ -35,7 +35,7 @@ SYNOPSIS
 
 ::
 
-    server.py [--port] [--listen-address]
+    server.py [--port]  [--listen-address]
 
 DESCRIPTION
 ===========
