@@ -78,6 +78,7 @@
   };
 
   showFace = function(){
+   
     return $('#show-face').attr('checked');
   };
 
