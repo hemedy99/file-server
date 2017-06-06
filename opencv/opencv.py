@@ -22,7 +22,6 @@ authentication purposes.
 
 Files
 =====
-
 write a file , ``model.mdl``
 create database file, ``data/images.db``
 
