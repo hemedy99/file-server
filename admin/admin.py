@@ -6,7 +6,6 @@ Authentication module for admin.
 
 DESCRIPTION
 ===========
-
 This module  authenticate the user based on username and a password.
 
 FILES
