@@ -20,7 +20,7 @@ In order to run this server you need the following to be installed.
 *   Python=2.7.x
 *   SQLite3
 
-## Directories Overviews <a name="dir"></a>
+## Directories Overviews <a name="dir"> </a>
 | Directory          | Description    |
 | ---------          | :----------    |
 | [admin]        | Admin module for authenticating admin |
