@@ -1,10 +1,13 @@
 {% extends "index.html" %}
 {% block title %}
-harvest
+File-server
 {% end %}
 {% block content %}
 <div class="page-header">
-  <h1 style="text-align: center">Remote Face Recognition File Server</h1>
+  <h1 style="text-align: center">
+  Facial Authentication File Server
+  <br>(Enrollment & Training Phase)
+  </h1>
 </div>
 <div class="row justify-content-md-center">
   <div class="col-md-3"></div>
@@ -17,13 +20,13 @@ harvest
   <div class="col-md-4 jumbotron">
     <div id="train">
       <form id="input" class="form-horizontal">
-          <label for="name">I dont seem to recognize you, whats your name?</label>
+          <label for="name">I dont seem to recognize you, input your name?</label>
           <input type="text" name="name" id="name" value="" />
           <button type="submit" class="btn btn-primary" id="start">Ok</button>
       </form>
       <div class="progress">
         <div id="training" class="progress-bar progress-bar-striped active"
-        role="progressbar" style="width: 20%">
+        role="progressbar" aria-valuemin="0" aria-valuemax="100">
           <span class="bar">Saving images...</span>
         </div>
       </div>
