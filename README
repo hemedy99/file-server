@@ -20,34 +20,37 @@ In order to run this server you need the following to be installed.
 *   Python=2.7.x
 *   SQLite3
 
-## Directories Overviews <a name="dir"> </a>
+## Directories Overviews <a name="dir"></a>
 | Directory          | Description    |
 | ---------          | :----------    |
 | [admin]        | Admin module for authenticating admin |
 | [data]    | ``images, images.db, and haarcascade_frontalface_alt.xml`` goes here|
+| [certs] | self-signed certificate for using https request|
 | [db]   | contain script for creating our images database |
 | [opencv] | module to handle all the opencv operations|
 | [static] | contains css, js, script |
+| [syslog] | server log model |
 | [templates] | contains all the html files|
 
 ## Installation <a name="install"></a>
+**NOTE**: Make sure you have `OpenCv3.2.0` installed; _remember google is your 
+friend here_ and proceed to the following steps:
 1. Clone this repo. 
-```bash-terminal
+```bash
 git clone https://github.com/hemedy99/file-server
 ```
-2. Change dir to file-server
-```bash -terminal
-cd file-server
+2. Change dir to face-recognition-server
+```bash 
+cd face-recognition-server
 ```
 3. Install the requirements.
-```bash-terminal
-#if your working on a virtualenv make sure to activate it
+```bash
 pip install -r requirements.txt
 ```
 4. Download [AT&T face database](http://www.cl.cam.ac.uk/research/dtg/attarchive/facedatabase.html) and
    extract it to ``data/images``.
-5. Change dir to data/ and create ``images.db ``
-```bash-terminal
+5. Change dir to `data/` and create ``images.db ``
+```bash
 cd data
 sqlite3 images.db < ../db/create_db.sql
 ```
@@ -59,12 +62,12 @@ Here is the sample content of the file.
 admin:$6$HS$c7mePrHC9gQUjm/V7GJmAXI1xT1ZsSqvLcBaV4TecAiaMg00a5UuI7M2ghmIPpcBhOAs.Sc.KvxpBIpTh.5R5/
 ```
 
-Then run ``python server.py`` and enter this url ``http://127.0.0.1:8888`` in
+Then run ``python server.py`` and enter this url ``https://127.0.0.1:8888`` or ``https:\\localhost:8888`` in
 your browser. In oder to access admin control center use this url
-``http://127.0.0.1:8888/admin-panel``.
+``https://127.0.0.1:8888/admin-panel``.
 
-https://github.com/hemedy99/file-server
+## Screenshot
+![img](http://i.imgur.com/TXsUXAf.png)
 
-This is a final year project to State University Of Zanzibar (2017)
-Bachelors Of Science In Computer Science
+
 
